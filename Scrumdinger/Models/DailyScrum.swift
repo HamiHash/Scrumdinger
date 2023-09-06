@@ -12,6 +12,14 @@ struct DailyScrum: Identifiable {
     var title: String
     var attendees: [Attendee]
     var lengthInMinutes: Int
+    var lengthInMinutesAsDouble: Double {
+        get {
+            Double(lengthInMinutes)
+        }
+        set {
+            lengthInMinutes = Int(newValue)
+        }
+    }
     var theme: Theme
     
     init(title: String, attendees: [String], lengthInMinutes: Int, theme: Theme) {
@@ -22,11 +30,15 @@ struct DailyScrum: Identifiable {
     }
 }
 
-// Attendee -> we made this to add an Id for each attendee to use in List
+// Attendee -> we made this to add an Id for each attendee to use in List, Also used it in Detaileditview to add new attendee
 extension DailyScrum {
     struct Attendee: Identifiable {
         let id =  UUID()
         var name: String
+    }
+    
+    static var emptyScrum: DailyScrum {
+        DailyScrum(title: "", attendees: [], lengthInMinutes: 5, theme: .sky)
     }
 }
 
