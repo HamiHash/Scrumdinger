@@ -7,7 +7,12 @@
 
 import SwiftUI
 
-enum Theme: String {
+enum Theme: String, CaseIterable, Identifiable {
+    
+    var id: UUID {
+        UUID()
+    }
+    
     case bubblegum
     case buttercup
     case indigo
