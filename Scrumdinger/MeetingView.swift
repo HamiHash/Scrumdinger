@@ -6,32 +6,56 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct MeetingView: View {
+    
     @Binding var scrum: DailyScrum
     @StateObject var scrumTimer = ScrumTimer()
     
+    private var player: AVPlayer { AVPlayer.sharedDingPlayer }
+    
     var body: some View {
         ZStack {
+            // Background
             RoundedRectangle(cornerRadius: 16.0)
                 .fill(scrum.theme.mainColor)
+            
             VStack {
+                // Header
                 MeetingHeaderView(secondsElapsed: scrumTimer.secondsElapsed, secondsRemaining: scrumTimer.secondsRemaining, theme: scrum.theme)
-                
+                // Cricle
                 Circle().strokeBorder(lineWidth: 24)
-                HStack {
-                    Text("Speaker 1 of 3")
-                    Spacer()
-                    Button(action: {}) {
-                        Image(systemName: "forward.fill")
-                    }
-                    .accessibilityLabel("Next speaker")
-                }
+                // Footer
+                MeetingFooterView(speakers: scrum.attendees.speakers, skipAction: scrumTimer.skipSpeaker)
             }
         }
         .padding()
         .foregroundColor(scrum.theme.accentColor)
+        .onAppear {
+            startScrum()
+        }
+        .onDisappear {
+            endScrum()
+        }
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func startScrum() {
+        // Reset
+        scrumTimer.reset(lengthInMinutes: scrum.lengthInMinutes, attendees: scrum.attendees)
+        // Start
+        scrumTimer.startScrum()
+        scrumTimer.speakerChangedAction = {
+            player.seek(to: .zero) /// Seeking to time .zero ensures that the audio file always plays from the beginning.
+            player.play()
+        }
+    }
+    
+    private func endScrum() {
+        scrumTimer.stopScrum()
+        let newHistory = History(attendees: scrum.attendees)
+        scrum.history.insert(newHistory, at: 0)
     }
 }
 

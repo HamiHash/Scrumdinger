@@ -9,8 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     
-    @Binding var scrum: DailyScrum /// Using a binding ensures that DetailView renders again when the user’s interaction modifies scrum.
-    
+    @Binding var scrum: DailyScrum
     @State private var editingScrum = DailyScrum.emptyScrum
     @State private var isPresentingEditView = false
     
@@ -42,6 +41,17 @@ struct DetailView: View {
             Section(header: Text("Attendees")) {
                 ForEach(scrum.attendees) { i in
                     Label(i.name, systemImage: "person")
+                }
+            }
+            Section(header: Text("History")) {
+                if scrum.history.isEmpty {
+                    Label("No meetings yet", systemImage: "calendar.badge.exclamationmark")
+                }
+                ForEach(scrum.history) { history in
+                    HStack {
+                        Image(systemName: "calendar")
+                        Text(history.date, style: .date)
+                    }
                 }
             }
         }

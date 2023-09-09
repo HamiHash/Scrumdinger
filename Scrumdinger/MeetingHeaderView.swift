@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MeetingHeaderView: View {
+    
     let secondsElapsed: Int
     let secondsRemaining: Int
     let theme: Theme

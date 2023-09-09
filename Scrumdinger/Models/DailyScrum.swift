@@ -21,6 +21,7 @@ struct DailyScrum: Identifiable {
         }
     }
     var theme: Theme
+    var history: [History] = []
     
     init(title: String, attendees: [String], lengthInMinutes: Int, theme: Theme) {
         self.title = title
@@ -48,7 +49,7 @@ extension DailyScrum {
     [
         DailyScrum(title: "Design",
                    attendees: ["Cathy", "Daisy", "Simon", "Jonathan"],
-                   lengthInMinutes: 10,
+                   lengthInMinutes: 1,
                    theme: .yellow),
         DailyScrum(title: "App Dev",
                    attendees: ["Katie", "Gray", "Euna", "Luis", "Darla"],
