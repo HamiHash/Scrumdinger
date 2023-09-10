@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct DailyScrum: Identifiable {
-    let id = UUID()
+struct DailyScrum: Identifiable, Codable {
+    var id = UUID()
     var title: String
     var attendees: [Attendee]
     var lengthInMinutes: Int
@@ -33,8 +33,8 @@ struct DailyScrum: Identifiable {
 
 // Attendee -> we made this to add an Id for each attendee to use in List, Also used it in DetailEditView to add new attendee
 extension DailyScrum {
-    struct Attendee: Identifiable {
-        let id =  UUID()
+    struct Attendee: Identifiable, Codable {
+        var id =  UUID()
         var name: String
     }
     

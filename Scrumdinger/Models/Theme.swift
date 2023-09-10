@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Theme: String, CaseIterable, Identifiable {
+enum Theme: String, CaseIterable, Identifiable, Codable {
     
     var id: UUID {
         UUID()
