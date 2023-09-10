@@ -13,7 +13,7 @@ struct MeetingView: View {
     @Binding var scrum: DailyScrum
     @StateObject var scrumTimer = ScrumTimer()
     
-    private var player: AVPlayer { AVPlayer.sharedDingPlayer }
+//    private var player: AVPlayer { AVPlayer.sharedDingPlayer }
     
     var body: some View {
         ZStack {
@@ -25,9 +25,9 @@ struct MeetingView: View {
                 // Header
                 MeetingHeaderView(secondsElapsed: scrumTimer.secondsElapsed, secondsRemaining: scrumTimer.secondsRemaining, theme: scrum.theme)
                 // Cricle
-                Circle().strokeBorder(lineWidth: 24)
+                MeetingTimerView(speakers: scrumTimer.speakers, theme: scrum.theme)
                 // Footer
-                MeetingFooterView(speakers: scrum.attendees.speakers, skipAction: scrumTimer.skipSpeaker)
+                MeetingFooterView(speakers: scrumTimer.speakers, skipAction: scrumTimer.skipSpeaker)
             }
         }
         .padding()
@@ -47,8 +47,8 @@ struct MeetingView: View {
         // Start
         scrumTimer.startScrum()
         scrumTimer.speakerChangedAction = {
-            player.seek(to: .zero) /// Seeking to time .zero ensures that the audio file always plays from the beginning.
-            player.play()
+//            player.seek(to: .zero) /// Seeking to time .zero ensures that the audio file always plays from the beginning.
+//            player.play()
         }
     }
     
