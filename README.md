@@ -1,4 +1,4 @@
-# Scrumdinger
+# Instagram
 This is the apple's own learning project for SwiftUI. A meeting app which make it easy for people to manage calls and meetings.
 ##
 Insert the title, attendees, and length of meeting, and Scrumdinger will automatically divide the total time between all attendees and set a timer for each attendee.
